@@ -6,14 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc -b && node ./dist/app/api/index.js",
-    "worker": "tsc -b && node ./dist/app/worker/worker.js"
+    "worker": "tsc -b && node ./dist/app/worker/worker.js",
+    "seed": "tsc -b && node ./dist/app/worker/seed.worker.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@elastic/elasticsearch": "^9.3.4",
+    "@elastic/elasticsearch": "^8.19.1",
     "@prisma/adapter-pg": "^7.6.0",
     "@prisma/client": "^7.6.0",
     "@types/express": "^5.0.6",

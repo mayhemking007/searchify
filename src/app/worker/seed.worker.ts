@@ -7,3 +7,4 @@ export const startSeedWorker = async () => {
         await crawlerQueue.add('urls', {url : url});
     }
 }
+startSeedWorker();

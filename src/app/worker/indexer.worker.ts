@@ -6,8 +6,8 @@ import { generateEmbedding } from "../../infra/openai/generateEmbedding.js";
 import { es } from "../../infra/elasticSearch/elasticClient.js";
 import { title } from "node:process";
 
-export const startIndexerWorker = async (job : any) => {
-    const indexer = new Worker("indexer", async() => {
+export const startIndexerWorker = async () => {
+    const indexer = new Worker("indexer", async(job:any) => {
         console.log("Indexer worker started");
         if(job.name === "docs"){
             const docId = job.data.docId;

@@ -5,7 +5,6 @@ import { startSeedWorker } from "./seed.worker.js";
 export const startWorker = async () => {
     startCrawlerWorker();
     startIndexerWorker();
-    startSeedWorker();
 
     console.log("All workers are running.")
 }

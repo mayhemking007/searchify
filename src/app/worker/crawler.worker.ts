@@ -4,8 +4,8 @@ import { prisma } from "../../infra/db/prismaClient.js";
 import { getHTML } from "../../services/crawler/getHTML.js";
 import { handlePage } from "../../services/crawler/handlePage.js";
 
-export const startCrawlerWorker = async (job : any) => {
-    const crawler = new Worker("crawler", async() => {
+export const startCrawlerWorker = async () => {
+    const crawler = new Worker("crawler", async(job:any) => {
         if(job.name === "urls"){
             const urlCount = await prisma.visitedUrls.count();
             if(urlCount > 300) return;
