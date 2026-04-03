@@ -4,7 +4,6 @@ import { prisma } from "../../infra/db/prismaClient.js";
 import { chunker } from "../../services/indexer/chunker.js";
 import { generateEmbedding } from "../../infra/openai/generateEmbedding.js";
 import { es } from "../../infra/elasticSearch/elasticClient.js";
-import { title } from "node:process";
 
 export const startIndexerWorker = async () => {
     const indexer = new Worker("indexer", async(job:any) => {
@@ -20,6 +19,7 @@ export const startIndexerWorker = async () => {
                 }
                 const chunks = chunker(document.content, 300, 50);
                 for(const chunk of chunks){
+                    if(chunk.length < 100) continue;
                     const embedding = await generateEmbedding(chunk);
                     await es.index({
                         index : "chunks",

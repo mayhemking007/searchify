@@ -1,9 +1,18 @@
 export const chunker = (text : string, size : number, overlap : number) => {
-    const words = text.split(" ");
+    const sentences = text.split(/[.?!]/);
     let chunks : string[] = []
-    for(let i = 0; i < words.length; i += size - overlap){
-        const chunk = words.slice(i, i + size).join(" ");
-        chunks.push(chunk);
+    let current = "";
+    for(const sentence of sentences){
+        if((current + sentence).length > size){ 
+            chunks.push(current);
+            current = sentence;
+        }
+        else{
+            current += sentence + ". ";
+        }
+    }
+    if(current){
+        chunks.push(current);
     }
     return chunks;
 }

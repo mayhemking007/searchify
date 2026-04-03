@@ -8,7 +8,7 @@ export const startCrawlerWorker = async () => {
     const crawler = new Worker("crawler", async(job:any) => {
         if(job.name === "urls"){
             const urlCount = await prisma.visitedUrls.count();
-            if(urlCount > 300) return;
+            if(urlCount > 1000) return;
             const url = job.data.url;
             console.log(url);
             const page = await getHTML(url);

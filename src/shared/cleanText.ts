@@ -1,5 +1,5 @@
 export const cleanText = (text : string) => {
-    return text.replace(/\s+/g, " ").replace(/[^\w\s]/g, "").toLocaleLowerCase().trim();
+    return text.replace(/\n{2,}/g, "\n\n").replace(/[ \t]+/g, " ").replace(/[^\w\s]/g, "").toLocaleLowerCase().trim();
 }
 
 export const tokenizeText = (text : string) => {

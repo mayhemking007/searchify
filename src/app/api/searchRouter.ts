@@ -9,9 +9,15 @@ searchrouter.post('/', async(req, res) => {
     try{
         const embedding = await generateEmbedding(query);
         const result = await hybridSearch(embedding, query);
+        const formattedResult = result.map((item:any) => ({
+            title : item._source.title,
+            url : item._source.url,
+            content : item._source.content.slice(0,200) + "...",
+            score : item._score
+        }));
         res.json({
             success : true,
-            data : result
+            data : formattedResult
         });
     }
     catch(e){

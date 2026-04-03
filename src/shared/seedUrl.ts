@@ -1,5 +1,20 @@
 export const seedUrl = [
-  "https://en.wikipedia.org/wiki/Web_search_engine",
+  "https://kafka.apache.org/documentation/",
   "https://nodejs.org/en/docs",
+  "https://www.postgresql.org/docs/",
+  "https://redis.io/docs/",
+  "https://docs.docker.com/",
+  "https://kubernetes.io/docs/",
+  "https://developer.mozilla.org/en-US/docs/Web",
+  "https://graphql.org/learn/",
+  "https://en.wikipedia.org/wiki/Distributed_system",
+  "https://en.wikipedia.org/wiki/Database",
+  "https://netflixtechblog.com/",
+  "https://engineering.fb.com/",
+  "https://aws.amazon.com/blogs/architecture/",
+  "https://cloud.google.com/blog/topics/developers-practitioners",
+  "https://blog.bytebytego.com/",
+  "https://www.freecodecamp.org/news/",
+  "https://realpython.com/",
   "https://sarthak-chaturvedi.com/"
 ];
