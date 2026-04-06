@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { generateEmbedding } from "../../infra/openai/generateEmbedding.js";
 import { hybridSearch } from "../../services/search/hybridSearch.js";
+import { generateResponse } from "../../infra/openai/generateResponse.js";
 
 export const searchrouter = Router();
 
@@ -9,6 +10,11 @@ searchrouter.post('/', async(req, res) => {
     try{
         const embedding = await generateEmbedding(query);
         const result = await hybridSearch(embedding, query);
+        const chunkContent = result.map((item:any, i : number) => {
+            return `Source ${i+1} : ${item._source.content}
+            URL : ${item._source.url}`;
+        }).join("\n");
+        const summary = await generateResponse(chunkContent, query);
         const formattedResult = result.map((item:any) => ({
             title : item._source.title,
             url : item._source.url,
@@ -17,6 +23,8 @@ searchrouter.post('/', async(req, res) => {
         }));
         res.json({
             success : true,
+            aiSummary : summary.answer,
+            BUI : summary.critique,
             data : formattedResult
         });
     }
