@@ -24,7 +24,7 @@ searchrouter.post('/', async(req, res) => {
         res.json({
             success : true,
             aiSummary : summary.answer,
-            BUI : summary.critique,
+            critique : summary.critique,
             data : formattedResult
         });
     }
