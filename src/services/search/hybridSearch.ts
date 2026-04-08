@@ -4,7 +4,7 @@ export const hybridSearch : any = async (embedding : any[], query : string) => {
     try{
         const response = await es.search({
             index : "chunks",
-            size : 5,
+            size : 10,
             query : {
                 script_score: {
                     query : {
