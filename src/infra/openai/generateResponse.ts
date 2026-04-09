@@ -1,3 +1,4 @@
+import { ragLatency } from "../monitoring/metrics.js";
 import {openai} from "./openaiClient.js";
 
 export const generateResponse = async (text : string, query : string) => {
@@ -19,16 +20,27 @@ Using only the sources above, respond in this exact JSON format:
   "critique": "The single most important thing the answer glosses over — a weak assumption, missing context, or understudied angle. 1-2 lines max. Sharp, not alarmist."
 }`
 
-    const response = await openai.chat.completions.create({
-        model : "gpt-4o-mini",
-        messages : [
-            {role : "system", content : systemPrompt},
-            {role : "user", content : userPrompt}
-        ],
-        temperature : 0.4
-    });
-    if(!response){
-        throw new Error("Failed to generate response");
+    const end = ragLatency.startTimer();
+    try{
+        const response = await openai.chat.completions.create({
+            model : "gpt-4o-mini",
+            messages : [
+                {role : "system", content : systemPrompt},
+                {role : "user", content : userPrompt}
+            ],
+            temperature : 0.4
+        });
+        if(!response){
+            throw new Error("Failed to generate response");
+        }
+        return JSON.parse(response.choices[0]!.message.content as string);
     }
-    return JSON.parse(response.choices[0]!.message.content as string);
+    catch(e){
+        console.log(e);
+        throw e;
+    }
+    finally{
+        end();
+    }
+    
 }

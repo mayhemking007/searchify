@@ -1,6 +1,8 @@
 import { es } from "../../infra/elasticSearch/elasticClient.js";
+import { searchLatency } from "../../infra/monitoring/metrics.js";
 
 export const hybridSearch : any = async (embedding : any[], query : string) => {
+    const end = searchLatency.startTimer();
     try{
         const response = await es.search({
             index : "chunks",
@@ -26,5 +28,8 @@ export const hybridSearch : any = async (embedding : any[], query : string) => {
     catch(e){
         console.log(e);
         throw e;
+    }
+    finally{
+        end();
     }
 }

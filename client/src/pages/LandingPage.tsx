@@ -14,6 +14,10 @@ export function LandingPage() {
         setLoading(true);
         const result = await getResults(query); 
         setQuery("");
+        if(!result) {
+          setLoading(false);
+          return;
+        }
         setLoading(false);
         setResults(result);
     }
