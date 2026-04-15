@@ -7,7 +7,7 @@ import { handlePage } from "../../services/crawler/handlePage.js";
 export const startCrawlerWorker = async () => {
     const crawler = new Worker("crawler", async(job:any) => {
         if(job.name === "urls"){
-            const urlCount = await prisma.visitedUrls.count();
+            const urlCount = await prisma.document.count();
             if(urlCount > 1000) return;
             const url = job.data.url;
             console.log(url);

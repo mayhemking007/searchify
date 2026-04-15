@@ -15,7 +15,7 @@ export const UrlEnqueue = async (urls : string[]) => {
                 continue;
             }
             else{
-                const urlCount = await prisma.visitedUrls.count();
+                const urlCount = await prisma.document.count();
                 if(urlCount > 1000) return;
                 await prisma.visitedUrls.create({
                     data : {
